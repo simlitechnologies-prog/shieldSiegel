@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1200" viewBox="0 0 960 1200">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1F3A"/>
+      <stop offset="100%" stop-color="#06142B"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="1200" fill="url(#g)"/>
+  <circle cx="480" cy="430" r="160" fill="#D4AF37" opacity="0.15"/>
+  <rect x="320" y="560" width="320" height="420" rx="24" fill="#D4AF37" opacity="0.08"/>
+  <text x="480" y="650" text-anchor="middle" font-family="Georgia, serif" font-size="42" fill="#D4AF37" opacity="0.6">JusticeHub</text>
+</svg>

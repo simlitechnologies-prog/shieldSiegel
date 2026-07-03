@@ -1,0 +1,110 @@
+[
+  {
+    "id": "blog-01",
+    "slug": "rechte-bei-polizeikontrolle-in-deutschland",
+    "title": "Ihre Rechte bei einer Polizeikontrolle in Deutschland",
+    "excerpt": "Ein Überblick darüber, was bei einer Verkehrs- oder Straßenkontrolle erlaubt ist und wie Sie Ihre Rechte schützen.",
+    "content": "Ein Überblick darüber, was bei einer Verkehrs- oder Straßenkontrolle erlaubt ist und wie Sie Ihre Rechte schützen. In diesem Beitrag erläutern unsere Rechtsanwälte die wichtigsten rechtlichen Rahmenbedingungen bei Polizeikontrollen in Deutschland. Dabei werden typische Situationen aus der Praxis dargestellt und aufgezeigt, welche Rechte Betroffene haben und welche Pflichten bestehen. Jede Situation ist individuell, dennoch hilft ein grundlegendes Verständnis des Strafprozessrechts (StPO), um angemessen zu reagieren. Bei konkreten Fällen empfehlen wir eine individuelle rechtliche Beratung durch unsere Kanzlei.",
+    "category": "Strafrecht",
+    "tags": ["Strafrecht", "Rechtsratgeber"],
+    "featuredImage": "/images/pic1.jpg",
+    "author": {
+      "name": "Dr. Katharina Schneider",
+      "avatarUrl": "/images/avatar-placeholder.svg",
+      "role": "Gründungspartnerin"
+    },
+    "publishedAt": "2026-01-01",
+    "readingTime": 4,
+    "featured": true
+  },
+  {
+    "id": "blog-02",
+    "slug": "wichtige-klauseln-im-term-sheet-fuer-startups",
+    "title": "5 wichtige Klauseln im Term Sheet, die Gründer kennen müssen",
+    "excerpt": "Term Sheets bilden die Grundlage jeder Finanzierung. Diese Punkte sollten Sie genau prüfen.",
+    "content": "Term Sheets bilden die Grundlage jeder Unternehmensfinanzierung. In diesem Artikel erklären unsere Rechtsanwälte die zentralen Klauseln, die Gründer bei Investitionsrunden in Deutschland und der EU beachten sollten. Dazu gehören insbesondere Bewertungsmechanismen, Liquidationspräferenzen und Verwässerungsschutz. Ein sorgfältiges Verständnis dieser Punkte kann spätere Konflikte vermeiden und die Verhandlungsposition stärken.",
+    "category": "Gesellschaftsrecht",
+    "tags": ["Gesellschaftsrecht", "Startups"],
+    "featuredImage": "/images/pic2.jpg",
+    "author": {
+      "name": "Kristian Hoffmann",
+      "avatarUrl": "/images/avatar-placeholder.svg",
+      "role": "Senior Partner"
+    },
+    "publishedAt": "2026-02-02",
+    "readingTime": 5,
+    "featured": true
+  },
+  {
+    "id": "blog-03",
+    "slug": "sorgerecht-und-umzug-ins-ausland",
+    "title": "Sorgerecht und Umzug ins Ausland: Was Eltern wissen müssen",
+    "excerpt": "Umzugsstreitigkeiten gehören zu den komplexesten familienrechtlichen Fällen in Deutschland.",
+    "content": "Umzugsstreitigkeiten gehören zu den komplexesten familienrechtlichen Fällen in Deutschland. Dieser Beitrag erläutert, wie Familiengerichte Entscheidungen über Aufenthaltsbestimmungsrecht und Kindeswohl treffen. Maßgeblich ist stets das Kindeswohl nach deutschem Familienrecht (BGB). Unsere Kanzlei unterstützt Mandanten regelmäßig bei solchen Verfahren vor Familiengerichten.",
+    "category": "Familienrecht",
+    "tags": ["Familienrecht", "Sorgerecht"],
+    "featuredImage": "/images/pic3.jpg",
+    "author": {
+      "name": "Anna Weber",
+      "avatarUrl": "/images/avatar-placeholder.svg",
+      "role": "Partnerin"
+    },
+    "publishedAt": "2026-03-03",
+    "readingTime": 6,
+    "featured": true
+  },
+  {
+    "id": "blog-04",
+    "slug": "aufenthaltsrecht-aenderungen-eu-arbeitnehmer",
+    "title": "Aktuelle Änderungen im Aufenthaltsrecht für EU-Arbeitnehmer",
+    "excerpt": "Neue Regelungen beeinflussen Aufenthaltstitel und Arbeitsgenehmigungen in Deutschland.",
+    "content": "Neue Entwicklungen im Aufenthaltsrecht wirken sich auf EU-Bürger und Drittstaatsangehörige in Deutschland aus. Dieser Artikel erläutert Änderungen im Aufenthaltsgesetz (AufenthG) sowie Auswirkungen auf Blue-Card-Verfahren und Arbeitserlaubnisse.",
+    "category": "Migrationsrecht",
+    "tags": ["Migrationsrecht", "EU-Recht"],
+    "featuredImage": "/images/pic4.jpg",
+    "author": {
+      "name": "Lukas Meyer",
+      "avatarUrl": "/images/pic4.jpg",
+      "role": "Partner"
+    },
+    "publishedAt": "2026-04-04",
+    "readingTime": 7,
+    "featured": false
+  },
+  {
+    "id": "blog-05",
+    "slug": "gewerbemietrecht-vertragsfehler-vermeiden",
+    "title": "Häufige Fehler bei Gewerbemietverträgen",
+    "excerpt": "Gewerbemietverträge enthalten oft Risiken für Mieter und Vermieter.",
+    "content": "Gewerbemietverträge sind komplex und enthalten zahlreiche rechtliche Fallstricke. In diesem Beitrag zeigen wir typische Fehler bei Vertragsverhandlungen und erläutern wichtige Klauseln wie Mietanpassung, Laufzeiten und Kündigungsregelungen.",
+    "category": "Immobilienrecht",
+    "tags": ["Immobilienrecht", "Gewerbemiete"],
+    "featuredImage": "/images/pic5.jpg",
+    "author": {
+      "name": "Dr. Katharina Schneider",
+      "avatarUrl": "/images/pic5.jpg",
+      "role": "Gründungspartnerin"
+    },
+    "publishedAt": "2026-05-05",
+    "readingTime": 4,
+    "featured": false
+  },
+  {
+    "id": "blog-06",
+    "slug": "arbeitszeitregelungen-deutschland-ueberstunden",
+    "title": "Neue Arbeitszeitregelungen und ihre Auswirkungen auf Unternehmen",
+    "excerpt": "Aktuelle Änderungen beeinflussen Überstundenregelungen und Compliance-Anforderungen.",
+    "content": "Das deutsche Arbeitsrecht unterliegt regelmäßigen Anpassungen. Dieser Artikel erklärt die Auswirkungen neuer Arbeitszeitregelungen auf Unternehmen und Arbeitnehmer, insbesondere im Hinblick auf das Arbeitszeitgesetz (ArbZG).",
+    "category": "Arbeitsrecht",
+    "tags": ["Arbeitsrecht", "Compliance"],
+    "featuredImage": "/images/pic6.jpg",
+    "author": {
+      "name": "Kristian Hoffmann",
+      "avatarUrl": "/images/avatar-placeholder.svg",
+      "role": "Senior Partner"
+    },
+    "publishedAt": "2026-06-06",
+    "readingTime": 5,
+    "featured": false
+  }
+]

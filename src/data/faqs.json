@@ -1,0 +1,102 @@
+[
+  {
+    "id": "faq-01",
+    "question": "Welche Rechtsgebiete deckt die Kanzlei ab?",
+    "answer": "Unsere Kanzlei berät in den Bereichen Gesellschaftsrecht, Familienrecht, Strafrecht, Immobilienrecht, Arbeitsrecht, Migrationsrecht, Steuerrecht, Zivilrecht, Personenschadensrecht sowie im gewerblichen Rechtsschutz (IP-Recht)."
+  },
+  {
+    "id": "faq-02",
+    "question": "Wie hoch sind die Kosten für ein Erstberatungsgespräch?",
+    "answer": "In vielen Rechtsgebieten bieten wir eine erste rechtliche Einschätzung an. Die weiteren Kosten richten sich nach dem Rechtsanwaltsvergütungsgesetz (RVG) oder einer individuellen Honorarvereinbarung und werden vor Mandatsbeginn transparent erläutert."
+  },
+  {
+    "id": "faq-03",
+    "question": "Wie lange dauert ein typisches Verfahren?",
+    "answer": "Die Dauer eines Verfahrens hängt stark von der Komplexität und dem Rechtsgebiet ab. Nach einer ersten Prüfung Ihres Falls geben wir Ihnen eine realistische Einschätzung zum zeitlichen Ablauf."
+  },
+  {
+    "id": "faq-04",
+    "question": "Bieten Sie Ratenzahlungen an?",
+    "answer": "Ja, in geeigneten Fällen bieten wir flexible Zahlungsmodelle an. Sprechen Sie unser Team gerne darauf an."
+  },
+  {
+    "id": "faq-05",
+    "question": "Kann ich innerhalb der Kanzlei den Anwalt wechseln?",
+    "answer": "Ja. Sollte ein anderer Anwalt unserer Kanzlei besser zu Ihrem Anliegen passen, organisieren wir einen reibungslosen Übergang."
+  },
+  {
+    "id": "faq-06",
+    "question": "Übernehmen Sie auch internationale Fälle?",
+    "answer": "Ja. Wir beraten in grenzüberschreitenden Mandaten innerhalb der EU und arbeiten bei Bedarf mit ausländischen Kooperationskanzleien zusammen."
+  },
+  {
+    "id": "faq-07",
+    "question": "Was sollte ich zum ersten Beratungsgespräch mitbringen?",
+    "answer": "Bitte bringen Sie alle relevanten Unterlagen mit, z. B. Verträge, Schriftverkehr, Gerichtsdokumente sowie eine kurze Zusammenfassung Ihres Anliegens."
+  },
+  {
+    "id": "faq-08",
+    "question": "Ist meine Kommunikation mit dem Anwalt vertraulich?",
+    "answer": "Ja. Sämtliche Kommunikation unterliegt der anwaltlichen Schweigepflicht und den geltenden Datenschutzbestimmungen (DSGVO)."
+  },
+  {
+    "id": "faq-09",
+    "question": "Woran erkenne ich, ob ich einen Anwalt benötige?",
+    "answer": "Wenn Sie in einen Rechtsstreit verwickelt sind, Verträge prüfen oder verhandeln müssen oder rechtliche Risiken bestehen, empfiehlt sich eine rechtliche Beratung."
+  },
+  {
+    "id": "faq-10",
+    "question": "Vertreten Sie sowohl Privatpersonen als auch Unternehmen?",
+    "answer": "Ja, wir vertreten sowohl Privatmandanten als auch kleine und mittelständische Unternehmen sowie internationale Konzerne."
+  },
+  {
+    "id": "faq-11",
+    "question": "Was passiert nach dem Absenden des Kontaktformulars?",
+    "answer": "Unser Kanzleiteam meldet sich in der Regel innerhalb eines Werktages, um einen Termin für ein Beratungsgespräch zu vereinbaren."
+  },
+  {
+    "id": "faq-12",
+    "question": "Gibt es auch kurzfristige Beratungstermine bei dringenden Fällen?",
+    "answer": "Ja, bei dringenden Angelegenheiten bieten wir kurzfristige oder auch kurzfristig verfügbare Termine an."
+  },
+  {
+    "id": "faq-13",
+    "question": "Bieten Sie auch Online-Beratungen an?",
+    "answer": "Ja, wir bieten sowohl persönliche Termine als auch sichere Online-Beratung per Videoanruf an."
+  },
+  {
+    "id": "faq-14",
+    "question": "Wie werden Anwaltsgebühren berechnet?",
+    "answer": "Die Vergütung richtet sich je nach Fall entweder nach dem RVG, einem Stundenhonorar oder einer individuellen Vergütungsvereinbarung."
+  },
+  {
+    "id": "faq-15",
+    "question": "Wie hoch ist Ihre Erfolgsquote?",
+    "answer": "Ergebnisse hängen stets vom Einzelfall ab. Unsere Kanzlei erzielt jedoch regelmäßig erfolgreiche außergerichtliche und gerichtliche Lösungen für unsere Mandanten."
+  },
+  {
+    "id": "faq-16",
+    "question": "Kann ich eine Zweitmeinung einholen?",
+    "answer": "Ja, wir bieten regelmäßig Zweitmeinungen zu bereits laufenden Mandaten an."
+  },
+  {
+    "id": "faq-17",
+    "question": "Übernehmen Sie auch Berufungsverfahren?",
+    "answer": "Ja, unsere Prozessanwälte vertreten Mandanten auch in Berufungs- und Revisionsverfahren."
+  },
+  {
+    "id": "faq-18",
+    "question": "Wie bereite ich mich auf eine Sorgerechtsverhandlung vor?",
+    "answer": "Ihr Anwalt wird Sie individuell auf das Verfahren vorbereiten und Sie durch alle notwendigen Schritte begleiten."
+  },
+  {
+    "id": "faq-19",
+    "question": "Was ist der Unterschied zwischen Mediation und Gerichtsverfahren?",
+    "answer": "Mediation ist ein außergerichtliches, kooperatives Verfahren zur Konfliktlösung. Ein Gerichtsverfahren ist formell und wird vor einem Gericht entschieden."
+  },
+  {
+    "id": "faq-20",
+    "question": "Wie vereinbare ich einen Termin?",
+    "answer": "Sie können einen Termin telefonisch, per E-Mail oder über unser Online-Kontaktformular vereinbaren."
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "test-01",
+    "clientName": "Michael Chen",
+    "clientRole": "Unternehmer",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 4,
+    "quote": "Die Kanzlei hat mein gesellschaftsrechtliches Verfahren mit höchster Professionalität begleitet. Jeder Schritt wurde verständlich erklärt und transparent kommuniziert.",
+    "practiceArea": "gesellschaftsrecht"
+  },
+  {
+    "id": "test-02",
+    "clientName": "Amara Johnson",
+    "clientRole": "Startup-Gründerin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Ich war anfangs überfordert mit meiner rechtlichen Situation, aber das Team hat sich intensiv mit meinem Fall beschäftigt und eine sehr gute Lösung erzielt.",
+    "practiceArea": "familienrecht"
+  },
+  {
+    "id": "test-03",
+    "clientName": "Liam O'Connor",
+    "clientRole": "Privatmandant",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "In einer schwierigen strafrechtlichen Situation habe ich mich jederzeit gut beraten und verteidigt gefühlt. Die Kommunikation war stets klar und professionell.",
+    "practiceArea": "strafrecht"
+  },
+  {
+    "id": "test-04",
+    "clientName": "Isabella Rossi",
+    "clientRole": "Unternehmerin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Die Beratung im Vertrags- und Immobilienrecht hat mir geholfen, einen teuren Fehler bei einer wichtigen Transaktion zu vermeiden.",
+    "practiceArea": "immobilienrecht"
+  },
+  {
+    "id": "test-05",
+    "clientName": "Daniel Kim",
+    "clientRole": "Geschäftsführer",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 4,
+    "quote": "Sehr gute Betreuung im Arbeitsrecht. Die Kommunikation war transparent und die Lösung meines Falls effizient und nachvollziehbar.",
+    "practiceArea": "arbeitsrecht"
+  },
+  {
+    "id": "test-06",
+    "clientName": "Grace Adebayo",
+    "clientRole": "Gastronomin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Die Kanzlei hat mich im Aufenthaltsrecht ehrlich beraten und realistische Erwartungen gesetzt. Das Ergebnis hat meine Erwartungen übertroffen.",
+    "practiceArea": "migrationsrecht"
+  },
+  {
+    "id": "test-07",
+    "clientName": "Lucas Fernandez",
+    "clientRole": "Immobilieninvestor",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Kompetente Beratung im Steuerrecht. Mein Fall wurde schnell und effizient gelöst, mit einem sehr guten Ergebnis.",
+    "practiceArea": "steuerrecht"
+  },
+  {
+    "id": "test-08",
+    "clientName": "Hannah Schmidt",
+    "clientRole": "HR-Managerin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Hervorragende Unterstützung im Zivilprozess. Die Strategie war klar und das Team sehr engagiert.",
+    "practiceArea": "zivilrecht"
+  },
+  {
+    "id": "test-09",
+    "clientName": "Omar Farouk",
+    "clientRole": "Unternehmer",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 4,
+    "quote": "In einer persönlichen rechtlichen Angelegenheit wurde ich sehr empathisch und gleichzeitig juristisch präzise beraten.",
+    "practiceArea": "familienrecht"
+  },
+  {
+    "id": "test-10",
+    "clientName": "Olivia Brooks",
+    "clientRole": "Immobilienverwalterin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Sehr kompetente Unterstützung im gewerblichen Rechtsschutz. Meine Markenrechte wurden erfolgreich geschützt.",
+    "practiceArea": "gewerblicher-rechtsschutz"
+  },
+  {
+    "id": "test-11",
+    "clientName": "Ethan Walsh",
+    "clientRole": "Unternehmer",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Die Beratung im Gesellschaftsrecht war klar strukturiert und äußerst professionell. Ich fühlte mich jederzeit gut betreut.",
+    "practiceArea": "gesellschaftsrecht"
+  },
+  {
+    "id": "test-12",
+    "clientName": "Priya Sharma",
+    "clientRole": "Startup-Gründerin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Sehr kompetente und engagierte Kanzlei. Besonders im internationalen Kontext wurde mir schnell und effizient geholfen.",
+    "practiceArea": "familienrecht"
+  },
+  {
+    "id": "test-13",
+    "clientName": "Noah Bennett",
+    "clientRole": "Privatmandant",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 4,
+    "quote": "Im Strafverfahren fühlte ich mich jederzeit gut vertreten. Die Verteidigungsstrategie war überzeugend und professionell.",
+    "practiceArea": "strafrecht"
+  },
+  {
+    "id": "test-14",
+    "clientName": "Camila Torres",
+    "clientRole": "Unternehmerin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Sehr präzise Vertragsprüfung im Immobilienrecht. Die Beratung hat mir viel Sicherheit gegeben.",
+    "practiceArea": "immobilienrecht"
+  },
+  {
+    "id": "test-15",
+    "clientName": "Aiden Murphy",
+    "clientRole": "IT-Manager",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Exzellente Unterstützung im Arbeitsrecht. Die Kanzlei hat komplexe Sachverhalte sehr verständlich erklärt.",
+    "practiceArea": "arbeitsrecht"
+  },
+  {
+    "id": "test-16",
+    "clientName": "Yuki Tanaka",
+    "clientRole": "Gastronom",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Im Migrationsrecht wurde mein Anliegen schnell und professionell bearbeitet. Sehr zuverlässige Kanzlei.",
+    "practiceArea": "migrationsrecht"
+  },
+  {
+    "id": "test-17",
+    "clientName": "Sophia Hassan",
+    "clientRole": "Investor",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 4,
+    "quote": "Die steuerrechtliche Beratung war sehr fundiert und hat mir geholfen, meine Struktur deutlich zu verbessern.",
+    "practiceArea": "steuerrecht"
+  },
+  {
+    "id": "test-18",
+    "clientName": "Benjamin Clarke",
+    "clientRole": "HR-Leiter",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Sehr starke Vertretung im Zivilprozess. Strategisch und professionell von Anfang bis Ende.",
+    "practiceArea": "zivilrecht"
+  },
+  {
+    "id": "test-19",
+    "clientName": "Zara Malik",
+    "clientRole": "Unternehmerin",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Einfühlsame und zugleich sehr kompetente Beratung im Familienrecht. Ich habe mich gut aufgehoben gefühlt.",
+    "practiceArea": "familienrecht"
+  },
+  {
+    "id": "test-20",
+    "clientName": "Henry Foster",
+    "clientRole": "Immobilienmanager",
+    "avatarUrl": "/images/avatar-placeholder.svg",
+    "rating": 5,
+    "quote": "Sehr professionelle Beratung im gewerblichen Rechtsschutz. Meine Interessen wurden konsequent durchgesetzt.",
+    "practiceArea": "gewerblicher-rechtsschutz"
+  }
+]
