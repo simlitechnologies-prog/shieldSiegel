@@ -18,12 +18,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { practiceAreas } from "@/data/practice-areas";
-import {
-  createBooking,
-  checkAvailability,
-  PRICING,
-} from "@/lib/firebase/booking";
-import type { BookingData } from "@/lib/firebase/booking";
+import { PRICING } from "@/lib/firebase/booking";
 
 const TIME_SLOTS = [
   "09:00",
@@ -56,28 +51,31 @@ const bookingSchema = z.object({
 type BookingFormValues = z.infer<typeof bookingSchema>;
 
 interface BookingFormProps {
-  selectedTier?: "basic" | "premium";
-  isUrgent?: boolean;
-  totalPrice?: number;
+  selectedTier: "basic" | "premium";
+  isUrgent: boolean;
+  totalPrice: number;
+  onSubmit: (data: any) => void;
+  isSubmitting: boolean;
+  submitStatus: {
+    type: "success" | "error" | null;
+    message: string;
+  };
 }
 
 export function BookingForm({
-  selectedTier = "basic",
-  isUrgent = false,
-  totalPrice = 150,
+  selectedTier,
+  isUrgent,
+  totalPrice,
+  onSubmit: parentOnSubmit,
+  isSubmitting: parentIsSubmitting,
+  submitStatus,
 }: BookingFormProps) {
-  const [submitted, setSubmitted] = React.useState(false);
-  const [submitError, setSubmitError] = React.useState<string | null>(null);
-  const [bookingReference, setBookingReference] = React.useState<string | null>(
-    null,
-  );
-
   const {
     register,
     handleSubmit,
     control,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting: formIsSubmitting },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
@@ -85,119 +83,39 @@ export function BookingForm({
     },
   });
 
+  // Use either parent's submitting state or form's internal state
+  const isSubmitting = parentIsSubmitting || formIsSubmitting;
+
   async function onSubmit(values: BookingFormValues) {
-    setSubmitError(null);
+    // Pass the form data to the parent component
+    const formData = {
+      name: values.fullName,
+      email: values.email,
+      phone: values.phone,
+      legalArea: values.practiceArea,
+      message: values.message || "",
+      preferredDate: values.preferredDate,
+      preferredTime: values.preferredTime,
+    };
 
-    try {
-      // 1. Check availability
-      const availabilityCheck = await checkAvailability(
-        values.preferredDate,
-        values.preferredTime,
-      );
-
-      if (!availabilityCheck.success) {
-        setSubmitError(
-          "Fehler bei der Verfügbarkeitsprüfung. Bitte versuchen Sie es später erneut.",
-        );
-        return;
-      }
-
-      if (!availabilityCheck.available) {
-        setSubmitError(
-          "Dieser Termin ist leider bereits vergeben. Bitte wählen Sie einen anderen Termin.",
-        );
-        return;
-      }
-
-      // 2. Prepare booking data
-      const bookingData: Omit<
-        BookingData,
-        "createdAt" | "updatedAt" | "bookingReference"
-      > = {
-        name: values.fullName,
-        email: values.email,
-        phone: values.phone,
-        legalArea: values.practiceArea,
-        message: values.message || "",
-        selectedTier: selectedTier,
-        isUrgent: isUrgent,
-        totalPrice: totalPrice,
-        preferredDate: values.preferredDate,
-        preferredTime: values.preferredTime,
-        status: "pending",
-        paymentStatus: "pending",
-      };
-
-      // 3. Create booking in Firebase
-      const result = await createBooking(bookingData);
-
-      if (result.success) {
-        setBookingReference(result.bookingReference || null);
-        setSubmitted(true);
-        reset();
-        console.log("Booking created:", result);
-      } else {
-        setSubmitError(
-          result.error ||
-            "Fehler bei der Buchung. Bitte versuchen Sie es später erneut.",
-        );
-      }
-    } catch (error) {
-      console.error("Booking submission error:", error);
-      setSubmitError(
-        "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
-      );
-    }
-  }
-
-  if (submitted) {
-    return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-black/5 bg-[var(--color-ivory)] p-12 text-center">
-        <CheckCircle2 className="h-12 w-12 text-[var(--color-gold)]" />
-
-        <h3 className="mt-4 font-display text-xl font-semibold text-[var(--color-navy)]">
-          Buchung erfolgreich!
-        </h3>
-
-        <p className="mt-2 max-w-sm text-sm text-[var(--color-slate)]">
-          Ihre Buchung wurde erfolgreich erstellt.
-          {bookingReference && (
-            <span className="block mt-1 font-mono text-sm font-medium text-[var(--color-navy)]">
-              Referenz: {bookingReference}
-            </span>
-          )}
-        </p>
-
-        <div className="mt-4 rounded-lg bg-blue-50 p-4 text-sm text-blue-800">
-          <p className="font-medium">📧 Nächste Schritte:</p>
-          <p className="mt-1">
-            Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details zu
-            Ihrem Beratungstermin.
-          </p>
-        </div>
-
-        <Button
-          variant="outline"
-          className="mt-6"
-          onClick={() => {
-            setSubmitted(false);
-            setBookingReference(null);
-            reset();
-          }}
-        >
-          Weiteren Termin buchen
-        </Button>
-      </div>
-    );
+    parentOnSubmit(formData);
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
-      {/* Error Message */}
-      {submitError && (
+      {/* Error Message from parent */}
+      {submitStatus.type === "error" && (
         <div className="rounded-lg bg-red-50 p-4 text-sm text-red-800 border border-red-200">
           <p className="font-medium">❌ Fehler bei der Buchung</p>
-          <p className="mt-1">{submitError}</p>
+          <p className="mt-1">{submitStatus.message}</p>
+        </div>
+      )}
+
+      {/* Success Message from parent */}
+      {submitStatus.type === "success" && (
+        <div className="rounded-lg bg-green-50 p-4 text-sm text-green-800 border border-green-200">
+          <p className="font-medium">✓ Buchung erfolgreich</p>
+          <p className="mt-1">{submitStatus.message}</p>
         </div>
       )}
 
@@ -401,11 +319,11 @@ export function BookingForm({
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Buchung wird erstellt...
+            Wird überprüft...
           </>
         ) : (
           <>
-            Beratung buchen
+            Weiter zur Zahlung
             <CalendarCheck className="h-4 w-4" />
           </>
         )}

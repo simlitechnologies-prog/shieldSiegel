@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { PageHeader } from "@/components/sections/page-header";
 import { BookingForm } from "@/components/forms/booking-form";
+import { StripePayment } from "@/components/payment/stripe-payment";
 import {
   Star,
   Zap,
@@ -36,6 +37,9 @@ export default function ConsultationClient() {
     type: null,
     message: "",
   });
+  const [showPayment, setShowPayment] = useState(false);
+  const [formData, setFormData] = useState<any>(null);
+  const [bookingData, setBookingData] = useState<any>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -78,16 +82,16 @@ export default function ConsultationClient() {
     return pricingOptions[selectedTier].name;
   };
 
-  // Handle booking form submission
-  const handleBookingSubmit = async (formData: any) => {
+  // Handle booking form submission - now just validates and shows payment
+  const handleBookingSubmit = async (formDataFromForm: any) => {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
     try {
       // First, check availability
       const availabilityCheck = await checkAvailability(
-        formData.preferredDate,
-        formData.preferredTime,
+        formDataFromForm.preferredDate,
+        formDataFromForm.preferredTime,
       );
 
       if (!availabilityCheck.success) {
@@ -96,6 +100,7 @@ export default function ConsultationClient() {
           message:
             "Fehler bei der Verfügbarkeitsprüfung. Bitte versuchen Sie es später erneut.",
         });
+        setIsSubmitting(false);
         return;
       }
 
@@ -105,55 +110,32 @@ export default function ConsultationClient() {
           message:
             "Dieser Termin ist leider bereits vergeben. Bitte wählen Sie einen anderen Termin.",
         });
+        setIsSubmitting(false);
         return;
       }
 
-      // Prepare booking data
-      const bookingData: Omit<
-        BookingData,
-        "createdAt" | "updatedAt" | "bookingReference"
-      > = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || "",
-        legalArea: formData.legalArea,
-        message: formData.message || "",
+      // Store form data for later use
+      setFormData(formDataFromForm);
+
+      // Prepare data for payment
+      const paymentData = {
+        name: formDataFromForm.name,
+        email: formDataFromForm.email,
+        amount: getTotalPrice(),
         selectedTier: selectedTier,
         isUrgent: isUrgent,
-        totalPrice: getTotalPrice(),
-        preferredDate: formData.preferredDate,
-        preferredTime: formData.preferredTime,
-        status: "pending",
-        paymentStatus: "pending",
+        preferredDate: formDataFromForm.preferredDate,
+        preferredTime: formDataFromForm.preferredTime,
+        phone: formDataFromForm.phone || "",
+        legalArea: formDataFromForm.legalArea,
+        message: formDataFromForm.message || "",
       };
 
-      // Before calling createBooking
-      console.log("=== PATH DEBUG ===");
-      console.log("Collection name:", "bookings");
-      console.log("Full path:", `bookings/{auto-generated-id}`);
-      console.log("Data being sent:", bookingData);
-      // Create booking in Firebase
-      const result = await createBooking(bookingData);
-
-      if (result.success) {
-        setSubmitStatus({
-          type: "success",
-          message: `Ihre Buchung wurde erfolgreich erstellt! Buchungsreferenz: ${result.bookingReference}`,
-        });
-
-        // Here you would typically redirect to payment or show payment button
-        // We'll handle Stripe integration in the next step
-        console.log("Booking created:", result);
-      } else {
-        setSubmitStatus({
-          type: "error",
-          message:
-            result.error ||
-            "Fehler bei der Buchung. Bitte versuchen Sie es später erneut.",
-        });
-      }
+      setBookingData(paymentData);
+      setShowPayment(true);
+      setSubmitStatus({ type: null, message: "" });
     } catch (error) {
-      console.error("Booking submission error:", error);
+      console.error("Booking validation error:", error);
       setSubmitStatus({
         type: "error",
         message:
@@ -162,6 +144,68 @@ export default function ConsultationClient() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Handle successful payment - now creates the booking
+  const handlePaymentSuccess = async (paymentIntentId: string) => {
+    try {
+      // Prepare booking data
+      const bookingDataToSave: Omit<
+        BookingData,
+        "createdAt" | "updatedAt" | "bookingReference"
+      > = {
+        name: bookingData.name,
+        email: bookingData.email,
+        phone: bookingData.phone || "",
+        legalArea: bookingData.legalArea,
+        message: bookingData.message || "",
+        selectedTier: selectedTier,
+        isUrgent: isUrgent,
+        totalPrice: getTotalPrice(),
+        preferredDate: bookingData.preferredDate,
+        preferredTime: bookingData.preferredTime,
+        status: "confirmed", // Immediately confirmed since payment succeeded
+        paymentStatus: "paid",
+        paymentIntentId: paymentIntentId,
+      };
+
+      // Create booking in Firebase
+      const result = await createBooking(bookingDataToSave);
+
+      if (result.success) {
+        setSubmitStatus({
+          type: "success",
+          message: `✓ Buchung und Zahlung erfolgreich! Ihre Buchungsreferenz: ${result.bookingReference}`,
+        });
+        setShowPayment(false);
+
+        // Reset form data
+        setFormData(null);
+        setBookingData(null);
+      } else {
+        // If booking creation fails, we need to handle it
+        setSubmitStatus({
+          type: "error",
+          message: `Die Zahlung war erfolgreich, aber die Buchung konnte nicht gespeichert werden. Bitte kontaktieren Sie den Support. Referenz: ${paymentIntentId}`,
+        });
+        setShowPayment(false);
+      }
+    } catch (error) {
+      console.error("Error saving booking after payment:", error);
+      setSubmitStatus({
+        type: "error",
+        message: `Die Zahlung war erfolgreich, aber es gab ein Problem beim Speichern der Buchung. Bitte kontaktieren Sie den Support.`,
+      });
+      setShowPayment(false);
+    }
+  };
+
+  const handlePaymentError = (error: string) => {
+    setSubmitStatus({
+      type: "error",
+      message: `Zahlung fehlgeschlagen: ${error}. Bitte versuchen Sie es erneut.`,
+    });
+    setShowPayment(false);
   };
 
   // Don't render interactive content until mounted to prevent hydration issues
@@ -460,12 +504,62 @@ export default function ConsultationClient() {
                 </div>
               </div>
 
-              {/* Booking Form with props */}
-              <BookingForm
-                selectedTier={selectedTier}
-                isUrgent={isUrgent}
-                totalPrice={getTotalPrice()}
-              />
+              {/* Show booking form or payment interface */}
+              {!showPayment ? (
+                <>
+                  <BookingForm
+                    selectedTier={selectedTier}
+                    isUrgent={isUrgent}
+                    totalPrice={getTotalPrice()}
+                    onSubmit={handleBookingSubmit}
+                    isSubmitting={isSubmitting}
+                    submitStatus={submitStatus}
+                  />
+                  {submitStatus.type && (
+                    <div
+                      className={`mt-6 rounded-lg p-4 ${
+                        submitStatus.type === "success"
+                          ? "bg-green-50 text-green-700"
+                          : "bg-red-50 text-red-700"
+                      }`}
+                    >
+                      {submitStatus.message}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="space-y-4">
+                  <div className="rounded-lg bg-blue-50 p-4">
+                    <p className="text-sm text-blue-700">
+                      <CheckCircle2 className="inline h-4 w-4 mr-1" />
+                      Bitte schließen Sie die Zahlung ab, um Ihren Termin zu
+                      bestätigen.
+                    </p>
+                    <div className="mt-2 flex flex-wrap gap-4 text-xs text-blue-600">
+                      <span>👤 {bookingData?.name}</span>
+                      <span>📧 {bookingData?.email}</span>
+                      <span>📅 {bookingData?.preferredDate}</span>
+                      <span>⏰ {bookingData?.preferredTime}</span>
+                    </div>
+                  </div>
+
+                  <StripePayment
+                    bookingData={bookingData}
+                    onSuccess={handlePaymentSuccess}
+                    onError={handlePaymentError}
+                  />
+
+                  <button
+                    onClick={() => {
+                      setShowPayment(false);
+                      setSubmitStatus({ type: null, message: "" });
+                    }}
+                    className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    ← Zurück zur Buchung
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </section>
