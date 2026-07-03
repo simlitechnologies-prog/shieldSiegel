@@ -4,7 +4,7 @@ import * as React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { CalendarCheck, CheckCircle2, Loader2 } from "lucide-react";
+import { CalendarCheck, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -30,6 +30,16 @@ const TIME_SLOTS = [
   "16:00",
 ];
 
+export interface BookingFormData {
+  name: string;
+  email: string;
+  phone: string;
+  legalArea: string;
+  message: string;
+  preferredDate: string;
+  preferredTime: string;
+}
+
 const bookingSchema = z.object({
   fullName: z.string().min(2, "Bitte geben Sie Ihren vollständigen Namen ein"),
   email: z.string().email("Bitte geben Sie eine gültige E-Mail-Adresse ein"),
@@ -54,7 +64,7 @@ interface BookingFormProps {
   selectedTier: "basic" | "premium";
   isUrgent: boolean;
   totalPrice: number;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: BookingFormData) => void;
   isSubmitting: boolean;
   submitStatus: {
     type: "success" | "error" | null;
@@ -74,7 +84,7 @@ export function BookingForm({
     register,
     handleSubmit,
     control,
-    reset,
+
     formState: { errors, isSubmitting: formIsSubmitting },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),

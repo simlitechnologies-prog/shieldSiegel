@@ -1,21 +1,20 @@
 import { db } from "../firebase";
 import {
   collection,
-  addDoc,
   doc,
   getDoc,
   getDocs,
   query,
   where,
   orderBy,
-  limit,
   updateDoc,
   Timestamp,
   serverTimestamp,
-  setDoc,
   runTransaction,
+  FieldValue,
 } from "firebase/firestore";
 
+// ✅ FIX 1 & 2 & 3: Replace 'any' with proper types
 export interface BookingData {
   userId?: string;
   name: string;
@@ -30,15 +29,14 @@ export interface BookingData {
   preferredTime: string;
   status: "pending" | "confirmed" | "completed" | "cancelled";
   paymentStatus: "pending" | "paid" | "failed" | "refunded";
-  createdAt: any;
-  updatedAt: any;
+  createdAt: Timestamp | Date | FieldValue | null;
+  updatedAt: Timestamp | Date | FieldValue | null;
   bookingReference?: string;
   paymentIntentId?: string;
   stripeCustomerId?: string;
   paymentAmount?: number;
   paymentCurrency?: string;
-
-  metadata?: Record<string, any>;
+  metadata?: Record<string, string | number | boolean | null>; // ← FIX 3: Replace 'any'
 }
 
 export interface ConsultationPricing {
@@ -110,7 +108,7 @@ export async function updateBookingWithPayment(
     paymentIntentId: string;
     paymentStatus: BookingData["paymentStatus"];
     stripeCustomerId?: string;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, string | number | boolean | null>; // ← FIX 3 applied here too
   },
 ) {
   try {
@@ -245,7 +243,11 @@ export async function updateBookingStatus(
   paymentStatus?: BookingData["paymentStatus"],
 ) {
   try {
-    const updateData: any = {
+    const updateData: {
+      status: BookingData["status"];
+      updatedAt: ReturnType<typeof serverTimestamp>;
+      paymentStatus?: BookingData["paymentStatus"];
+    } = {
       status,
       updatedAt: serverTimestamp(),
     };
@@ -289,9 +291,11 @@ export async function getBookingByReference(bookingReference: string) {
     }
 
     const bookingDoc = querySnapshot.docs[0];
+    // ✅ FIX 5: Type the data properly
+    const data = bookingDoc.data() as Omit<BookingData, "id"> & { id?: string };
     return {
       success: true,
-      data: { id: bookingDoc.id, ...bookingDoc.data() },
+      data: { id: bookingDoc.id, ...data },
     };
   } catch (error) {
     console.error("Error fetching booking by reference:", error);
@@ -313,10 +317,13 @@ export async function getBookingsByPaymentStatus(
       orderBy("createdAt", "desc"),
     );
     const querySnapshot = await getDocs(q);
-    const bookings = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const bookings = querySnapshot.docs.map((doc) => {
+      const data = doc.data() as Omit<BookingData, "id">;
+      return {
+        id: doc.id,
+        ...data,
+      };
+    });
     return {
       success: true,
       data: bookings,
@@ -340,10 +347,13 @@ export async function getBookingsByEmail(email: string) {
       orderBy("createdAt", "desc"),
     );
     const querySnapshot = await getDocs(q);
-    const bookings = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const bookings = querySnapshot.docs.map((doc) => {
+      const data = doc.data() as Omit<BookingData, "id">;
+      return {
+        id: doc.id,
+        ...data,
+      };
+    });
     return {
       success: true,
       data: bookings,
@@ -398,7 +408,7 @@ export async function cancelBooking(
       };
     }
 
-    const bookingData = bookingDoc.data();
+    const bookingData = bookingDoc.data() as BookingData;
 
     // If refund is requested and payment was made
     if (
@@ -467,7 +477,7 @@ export async function getBookingStats() {
     };
 
     querySnapshot.forEach((doc) => {
-      const data = doc.data();
+      const data = doc.data() as BookingData;
 
       // Count by status
       if (data.status === "pending") stats.pending++;

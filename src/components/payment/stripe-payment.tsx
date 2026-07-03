@@ -30,15 +30,13 @@ interface StripePaymentProps {
   onError: (error: string) => void;
 }
 
-// Checkout Form Component
+// ✅ FIX 1: Remove 'clientSecret' from props since it's not used
 function CheckoutForm({
   onSuccess,
   onError,
-  clientSecret,
 }: {
   onSuccess: (id: string) => void;
   onError: (error: string) => void;
-  clientSecret: string;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -322,11 +320,8 @@ export function StripePayment({
           },
         }}
       >
-        <CheckoutForm
-          onSuccess={onSuccess}
-          onError={onError}
-          clientSecret={clientSecret}
-        />
+        {/* ✅ FIX 2: Remove clientSecret prop since it's not needed */}
+        <CheckoutForm onSuccess={onSuccess} onError={onError} />
       </Elements>
     </div>
   );
