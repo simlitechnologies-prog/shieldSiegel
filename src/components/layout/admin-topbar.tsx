@@ -6,6 +6,7 @@ import { useSidebar } from "../../../contexts/SidebarContext";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function AdminTopbar({ title }: { title: string }) {
   const { isOpen, toggleSidebar } = useSidebar();
@@ -107,9 +108,11 @@ export function AdminTopbar({ title }: { title: string }) {
               )} flex items-center justify-center text-white font-medium text-sm`}
             >
               {user?.photoURL ? (
-                <img
+                <Image
                   src={user.photoURL}
-                  alt={user.name}
+                  alt={user.name || "User avatar"}
+                  width={36}
+                  height={36}
                   className="h-full w-full object-cover"
                 />
               ) : (
@@ -135,15 +138,17 @@ export function AdminTopbar({ title }: { title: string }) {
                 <div className="border-b border-gray-100 px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`h-10 w-10 rounded-full ${getColorFromName(
+                      className={`h-10 w-10 overflow-hidden rounded-full ${getColorFromName(
                         user?.name || "Admin",
                       )} flex items-center justify-center text-white font-medium text-sm`}
                     >
                       {user?.photoURL ? (
-                        <img
+                        <Image
                           src={user.photoURL}
-                          alt={user.name}
-                          className="h-full w-full rounded-full object-cover"
+                          alt={user.name || "User avatar"}
+                          width={40}
+                          height={40}
+                          className="h-full w-full object-cover"
                         />
                       ) : (
                         getInitials(user?.name || "Admin")

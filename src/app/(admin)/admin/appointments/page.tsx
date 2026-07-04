@@ -10,13 +10,11 @@ import {
   deleteBooking,
   BookingData,
 } from "@/lib/firebase/admin-booking";
-import { useAuth } from "../../../../../contexts/AuthContext";
-import { useRouter } from "next/navigation";
+
 import {
   CheckCircle,
   XCircle,
   Clock,
-  Calendar,
   AlertCircle,
   Loader2,
   RefreshCw,
@@ -24,7 +22,6 @@ import {
   Trash2,
   Check,
   X,
-  FileText,
 } from "lucide-react";
 
 export default function AdminAppointmentsPage() {
@@ -35,8 +32,6 @@ export default function AdminAppointmentsPage() {
     null,
   );
   const [showDetails, setShowDetails] = useState(false);
-  const { user } = useAuth();
-  const router = useRouter();
 
   // Fetch bookings
   const fetchBookings = async () => {
@@ -45,9 +40,10 @@ export default function AdminAppointmentsPage() {
       setError(null);
       const data = await getBookings();
       setBookings(data);
-    } catch (err: any) {
-      console.error("Error fetching bookings:", err);
+    } catch (err: unknown) {
+      // Fixed: Changed 'any' to 'unknown'
       setError("Failed to load appointments. Please try again.");
+      console.error("Error fetching bookings:", err); // Using the error
     } finally {
       setLoading(false);
     }
@@ -65,7 +61,7 @@ export default function AdminAppointmentsPage() {
     try {
       await updateBookingStatus(bookingId, newStatus);
       await fetchBookings();
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Error updating status:", err);
       alert("Failed to update status. Please try again.");
     }
@@ -78,7 +74,7 @@ export default function AdminAppointmentsPage() {
     try {
       await deleteBooking(bookingId);
       await fetchBookings();
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Error deleting booking:", err);
       alert("Failed to delete booking. Please try again.");
     }
@@ -176,11 +172,7 @@ export default function AdminAppointmentsPage() {
     };
 
     const configItem = config[status];
-    return (
-      <Badge variant="outline" className={configItem.className}>
-        {configItem.label}
-      </Badge>
-    );
+    return <Badge className={configItem.className}>{configItem.label}</Badge>;
   };
 
   // Loading state
@@ -389,6 +381,7 @@ export default function AdminAppointmentsPage() {
                   Booking Details
                 </h2>
                 <button
+                  title="button"
                   onClick={() => setShowDetails(false)}
                   className="rounded p-1 hover:bg-gray-100"
                 >

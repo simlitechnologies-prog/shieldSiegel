@@ -3,8 +3,17 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
+// Define the User type
+interface User {
+  id: string;
+  email: string;
+  password: string;
+  name?: string;
+  // Add other user properties as needed
+}
+
 // This is a mock database - replace with your actual database
-const users: any[] = [];
+const users: User[] = [];
 
 export async function POST(request: Request) {
   try {
@@ -43,16 +52,17 @@ export async function POST(request: Request) {
       { expiresIn: "7d" },
     );
 
-    // Set cookie
-    cookies().set("token", token, {
+    // Set cookie - await the cookies() promise
+    const cookieStore = await cookies();
+    cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60, // 7 days
+      maxAge: 7 * 24 * 60 * 60,
     });
 
     // Return user without password
-    const { password: _, ...userWithoutPassword } = user;
+    const { password: userWithoutPassword } = user;
     return NextResponse.json({ user: userWithoutPassword });
   } catch (error) {
     console.error("Login error:", error);

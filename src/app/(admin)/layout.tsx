@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AdminSidebar } from "@/components/layout/admin-sidebar";
-import { AdminTopbar } from "@/components/layout/admin-topbar";
 import { AuthProvider } from "../../../contexts/AuthContext";
 import { SidebarProvider } from "../../../contexts/SidebarContext";
 import { AdminAuthGuard } from "@/components/admin-auth-guard";

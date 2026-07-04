@@ -3,8 +3,17 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
+// Define the User type
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  createdAt: string;
+}
+
 // This is a mock database - replace with your actual database
-const users: any[] = [];
+const users: User[] = [];
 
 export async function POST(request: Request) {
   try {
@@ -31,7 +40,7 @@ export async function POST(request: Request) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const user = {
+    const user: User = {
       id: Date.now().toString(),
       name,
       email,
@@ -48,16 +57,17 @@ export async function POST(request: Request) {
       { expiresIn: "7d" },
     );
 
-    // Set cookie
-    cookies().set("token", token, {
+    // Set cookie - await the cookies() promise
+    const cookieStore = await cookies();
+    cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
 
-    // Return user without password
-    const { password: _, ...userWithoutPassword } = user;
+    // Return user without password - use a different variable name
+    const { password: userWithoutPassword } = user;
     return NextResponse.json({ user: userWithoutPassword });
   } catch (error) {
     console.error("Signup error:", error);

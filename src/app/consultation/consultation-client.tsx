@@ -32,8 +32,9 @@ interface PaymentBookingData {
 }
 
 export default function ConsultationClient() {
-  const [selectedTier, setSelectedTier] = useState<PricingTier>("basic");
-  const [isUrgent, setIsUrgent] = useState(false);
+  const [selectedTier] = useState<PricingTier>("basic");
+  const [isUrgent] = useState(false);
+
   const [isMounted, setIsMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
@@ -45,8 +46,8 @@ export default function ConsultationClient() {
   });
   const [showPayment, setShowPayment] = useState(false);
 
-  // ✅ FIX 1: Replace 'any' with proper types
-  const [formData, setFormData] = useState<BookingFormData | null>(null);
+  // Remove the unused formData state since it's not being used
+  // const [formData, setFormData] = useState<BookingFormData | null>(null);
   const [bookingData, setBookingData] = useState<PaymentBookingData | null>(
     null,
   );
@@ -92,7 +93,6 @@ export default function ConsultationClient() {
     return pricingOptions[selectedTier].name;
   };
 
-  // ✅ FIX 2: Replace 'any' with BookingFormData type
   const handleBookingSubmit = async (formDataFromForm: BookingFormData) => {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
@@ -124,10 +124,7 @@ export default function ConsultationClient() {
         return;
       }
 
-      // Store form data for later use
-      setFormData(formDataFromForm);
-
-      // Prepare data for payment
+      // Prepare data for payment (no need to store formData separately)
       const paymentData: PaymentBookingData = {
         name: formDataFromForm.name,
         email: formDataFromForm.email,
@@ -191,7 +188,6 @@ export default function ConsultationClient() {
           message: `✓ Buchung und Zahlung erfolgreich! Ihre Buchungsreferenz: ${result.bookingReference}`,
         });
         setShowPayment(false);
-        setFormData(null);
         setBookingData(null);
       } else {
         setSubmitStatus({
