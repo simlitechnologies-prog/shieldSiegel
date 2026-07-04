@@ -1,0 +1,69 @@
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
+
+// This is a mock database - replace with your actual database
+const users: any[] = [];
+
+export async function POST(request: Request) {
+  try {
+    const { name, email, password } = await request.json();
+
+    // Validate input
+    if (!name || !email || !password) {
+      return NextResponse.json(
+        { message: "Missing required fields" },
+        { status: 400 },
+      );
+    }
+
+    // Check if user exists
+    const existingUser = users.find((u) => u.email === email);
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 400 },
+      );
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user
+    const user = {
+      id: Date.now().toString(),
+      name,
+      email,
+      password: hashedPassword,
+      createdAt: new Date().toISOString(),
+    };
+
+    users.push(user);
+
+    // Generate JWT
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET || "your-secret-key",
+      { expiresIn: "7d" },
+    );
+
+    // Set cookie
+    cookies().set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60, // 7 days
+    });
+
+    // Return user without password
+    const { password: _, ...userWithoutPassword } = user;
+    return NextResponse.json({ user: userWithoutPassword });
+  } catch (error) {
+    console.error("Signup error:", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 },
+    );
+  }
+}
